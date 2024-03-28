@@ -18,7 +18,7 @@ func main() {
 		panic(err)
 	}
 
-	// Gracefull shutdown
+	// Graceful shutdown
 	<-done
 	err = c.shutdownContainer()
 	if err != nil {
