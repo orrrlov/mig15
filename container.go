@@ -17,12 +17,13 @@ const (
 type (
 	container struct {
 		client *dockerClient.Client
+		repo   *repo
 		id     string
 		state  string
 	}
 )
 
-func startContainer() (container, error) {
+func initContainer() (container, error) {
 	var c container
 	var err error
 
@@ -64,6 +65,8 @@ func startContainer() (container, error) {
 	c.id = containerJSON.ID
 	c.state = containerJSON.State.Status
 
+	c.repo, err = initRepo()
+
 	return c, nil
 }
 
@@ -75,10 +78,16 @@ func (c *container) shutdownContainer() error {
 		return err
 	}
 
+	err = c.repo.db.Close()
+	if err != nil {
+		return err
+	}
+
 	containerJSON, err := c.client.ContainerInspect(context.Background(), c.id)
 	if err != nil {
 		return err
 	}
+
 	c.state = containerJSON.State.Status
 	return nil
 }

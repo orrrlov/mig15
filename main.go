@@ -13,7 +13,7 @@ func main() {
 	done := make(chan os.Signal, 1)
 	signal.Notify(done, os.Interrupt, syscall.SIGTERM)
 
-	c, err := startContainer()
+	c, err := initContainer()
 	if err != nil {
 		panic(err)
 	}

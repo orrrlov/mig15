@@ -1,11 +1,24 @@
 package main
 
 type (
-	config struct {
+	ServiceConfig struct {
 	}
-	service struct {
-		repo       *repo
-		container1 *container
-		container2 *container
+
+	Service struct {
+		mode ModeEnum
 	}
 )
+
+func NewService() *Service {
+	var s Service
+
+	return &s
+}
+
+func (s *Service) Run() {
+
+}
+
+func (s *Service) Shutdown() {
+
+}

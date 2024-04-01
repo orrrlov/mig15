@@ -7,3 +7,9 @@ type (
 		db *sql.DB
 	}
 )
+
+func initRepo() (*repo, error) {
+	var r repo
+
+	return &r, nil
+}
